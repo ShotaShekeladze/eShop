@@ -73,7 +73,10 @@ public class CatalogItemListPagedEndpoint : IEndpoint<IResult, ListPagedCatalogI
             response.PageCount = totalItems > 0 ? 1 : 0;
         }
 
-        _logger.LogInformation("Number of records: {totalItems}", totalItems);
+        //_logger.LogInformation("Number of records: {totalItems}", totalItems);
+        //System.Diagnostics.Trace.TraceInformation($"(TRACE) Number of records: {totalItems}");
+
+        //throw new Exception("Cannot move further");
 
         return Results.Ok(response);
     }

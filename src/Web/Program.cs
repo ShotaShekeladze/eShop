@@ -43,6 +43,8 @@ builder.Services.AddScoped<ITokenClaimsService, IdentityTokenClaimService>();
 builder.Services.AddCoreServices(builder.Configuration);
 builder.Services.AddWebServices(builder.Configuration);
 
+builder.Services.AddHttpClient();
+
 // Add memory cache services
 builder.Services.AddMemoryCache();
 builder.Services.AddRouting(options =>
