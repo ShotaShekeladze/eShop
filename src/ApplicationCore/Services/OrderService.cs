@@ -57,7 +57,21 @@ public class OrderService : IOrderService
 
         await _orderRepository.AddAsync(order);
 
-        await SendOrder(order);
+        //await SendOrder(order);
+        await DeliverOrder(order);
+    }
+
+    private async Task DeliverOrder(Order order)
+    {
+        var functionUrl = $"https://orderdeliveryprocessor.azurewebsites.net/api/OrderDeliveryProcessorFunction?code={Environment.GetEnvironmentVariable("OrderDeliveryProcessorFunctionKey")}";
+
+        var httpClient = _httpClientFactory.CreateClient();
+
+        var orderJson = JsonConvert.SerializeObject(order);
+
+        var requestContent = new StringContent(orderJson, Encoding.UTF8, "application/json");
+
+        await httpClient.PostAsync(functionUrl, requestContent);
     }
 
     private async Task SendOrder(Order order)
