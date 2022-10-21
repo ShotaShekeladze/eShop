@@ -42,7 +42,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicApiIntegrationTests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderItemsReserver", "src\OrderItemsReserver\OrderItemsReserver.csproj", "{6B323AD9-2443-4FA9-99D5-826B252FD8B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderDeliveryProcessor", "src\OrderDeliveryProcessor\OrderDeliveryProcessor.csproj", "{4EB828FB-AE67-4AC7-A581-30DB4054536F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderDeliveryProcessor", "src\OrderDeliveryProcessor\OrderDeliveryProcessor.csproj", "{4EB828FB-AE67-4AC7-A581-30DB4054536F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "src\TestApp\TestApp.csproj", "{D6BECE7C-4B1A-47A5-904A-4B2BB9F099D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +104,10 @@ Global
 		{4EB828FB-AE67-4AC7-A581-30DB4054536F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EB828FB-AE67-4AC7-A581-30DB4054536F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EB828FB-AE67-4AC7-A581-30DB4054536F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6BECE7C-4B1A-47A5-904A-4B2BB9F099D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6BECE7C-4B1A-47A5-904A-4B2BB9F099D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6BECE7C-4B1A-47A5-904A-4B2BB9F099D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6BECE7C-4B1A-47A5-904A-4B2BB9F099D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +125,7 @@ Global
 		{D53EF010-8F8C-4337-A059-456E19D8AE63} = {15EA4737-125B-4E6E-A806-E13B7EBCDCCF}
 		{6B323AD9-2443-4FA9-99D5-826B252FD8B8} = {419A6ACE-0419-4315-A6FB-B0E63D39432E}
 		{4EB828FB-AE67-4AC7-A581-30DB4054536F} = {419A6ACE-0419-4315-A6FB-B0E63D39432E}
+		{D6BECE7C-4B1A-47A5-904A-4B2BB9F099D8} = {419A6ACE-0419-4315-A6FB-B0E63D39432E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {49813262-5DA3-4D61-ABD3-493C74CE8C2B}

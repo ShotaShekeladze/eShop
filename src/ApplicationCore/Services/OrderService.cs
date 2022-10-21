@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
+using Azure.Messaging.ServiceBus;
 using Microsoft.eShopWeb.ApplicationCore.Entities;
 using Microsoft.eShopWeb.ApplicationCore.Entities.BasketAggregate;
 using Microsoft.eShopWeb.ApplicationCore.Entities.OrderAggregate;
@@ -58,7 +59,38 @@ public class OrderService : IOrderService
         await _orderRepository.AddAsync(order);
 
         //await SendOrder(order);
-        await DeliverOrder(order);
+        //await DeliverOrder(order);
+        await SendOrderToQueue(order);
+    }
+
+    private async Task SendOrderToQueue(Order order)
+    {
+        var orderJson = JsonConvert.SerializeObject(order);
+        await SendMessageToQueue(orderJson);
+    }
+
+    private async Task SendMessageToQueue(string message)
+    {
+        await using var client = new ServiceBusClient(Environment.GetEnvironmentVariable("ServiceBusConnectionString"));
+        await using ServiceBusSender sender = client.CreateSender(Environment.GetEnvironmentVariable("ServiceBusQueueName"));
+
+        try
+        {
+            string messageBody = $"Dummy message";
+            var sbMessage = new ServiceBusMessage(message);
+            await sender.SendMessageAsync(sbMessage);
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"{DateTime.Now} :: Exception: {exception.Message}");
+        }
+        finally
+        {
+            // Calling DisposeAsync on client types is required to ensure that network
+            // resources and other unmanaged objects are properly cleaned up.
+            await sender.DisposeAsync();
+            await client.DisposeAsync();
+        }
     }
 
     private async Task DeliverOrder(Order order)

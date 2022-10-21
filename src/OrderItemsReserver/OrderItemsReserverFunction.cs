@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using OrderItemsReserver.Models;
 using OrderItemsReserver.Services;
 using System.Text;
 using System;
+using Newtonsoft.Json;
+using OrderItemsReserver.Models;
 
 namespace OrderItemsReserver
 {
@@ -26,10 +26,15 @@ namespace OrderItemsReserver
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req)
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            
-            Order order = JsonConvert.DeserializeObject<Order>(requestBody);
 
-            using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(requestBody)))
+            var valueBytes = Convert.FromBase64String(requestBody);
+            var json = Encoding.UTF8.GetString(valueBytes);
+
+            Order order = JsonConvert.DeserializeObject<Order>(json);
+
+            var orderJson = JsonConvert.SerializeObject(order);
+
+            using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(orderJson)))
             {
                 await _blobStorage.Save(ms, $"order_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss_fff")}.json");
             }
