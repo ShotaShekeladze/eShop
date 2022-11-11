@@ -59,7 +59,7 @@ public class OrderService : IOrderService
         await _orderRepository.AddAsync(order);
 
         //await SendOrder(order);
-        //await DeliverOrder(order);
+        await DeliverOrder(order);
         await SendOrderToQueue(order);
     }
 
@@ -95,7 +95,7 @@ public class OrderService : IOrderService
 
     private async Task DeliverOrder(Order order)
     {
-        var functionUrl = $"https://orderdeliveryprocessor.azurewebsites.net/api/OrderDeliveryProcessorFunction?code={Environment.GetEnvironmentVariable("OrderDeliveryProcessorFunctionKey")}";
+        var functionUrl = $"https://hometask-functions.azurewebsites.net/api/OrderDeliveryProcessorFunction?code={Environment.GetEnvironmentVariable("OrderDeliveryProcessorFunctionKey")}";
 
         var httpClient = _httpClientFactory.CreateClient();
 
